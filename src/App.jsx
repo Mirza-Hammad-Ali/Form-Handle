@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function App() {
-  // Form ka sara data ek object mein
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,8 +18,6 @@ function App() {
   });
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-
-    // Checkbox
     if (type === "checkbox") {
       setFormData((prev) => ({
         ...prev,
@@ -28,11 +25,8 @@ function App() {
           ? [...prev.skills, value]
           : prev.skills.filter((skill) => skill !== value),
       }));
-
       return;
     }
-
-    // File
     if (type === "file") {
       setFormData((prev) => ({
         ...prev,
@@ -41,34 +35,22 @@ function App() {
 
       return;
     }
-
-    // Normal inputs
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
-  // Form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // File ko localStorage mein directly save nahi kar sakte.
-    // Isliye file ko temporarily remove kar rahe hain.
     const dataToSave = {
       ...formData,
       file: formData.file ? formData.file.name : "",
     };
-
     localStorage.setItem("formData", JSON.stringify(dataToSave));
-
     alert("Form data saved!");
   };
-
-  // LocalStorage se data delete
   const handleClear = () => {
     localStorage.removeItem("formData");
-
     setFormData({
       name: "",
       email: "",
@@ -85,13 +67,10 @@ function App() {
       file: null,
     });
   };
-
   return (
     <div>
       <h1>React Form Handling</h1>
-
       <form onSubmit={handleSubmit}>
-        {/* TEXT */}
         <label>Name:</label>
         <input
           type="text"
@@ -102,7 +81,6 @@ function App() {
         />
         <br />
         <br />
-        {/* EMAIL */}
         <label>Email:</label>
         <input
           type="email"
@@ -113,7 +91,6 @@ function App() {
         />
         <br />
         <br />
-        {/* PASSWORD */}
         <label>Password:</label>
         <input
           type="password"
@@ -124,7 +101,6 @@ function App() {
         />
         <br />
         <br />
-        {/* NUMBER */}
         <label>Age:</label>
         <input
           type="number"
@@ -136,7 +112,6 @@ function App() {
         />
         <br />
         <br />
-        {/* DATE */}
         <label>Date:</label>
         <input
           type="date"
@@ -146,7 +121,6 @@ function App() {
         />
         <br />
         <br />
-        {/* TIME */}
         <label>Time:</label>
         <input
           type="time"
@@ -156,7 +130,6 @@ function App() {
         />
         <br />
         <br />
-        {/* RADIO */}
         <label>Gender:</label>
         <br />
         <input
@@ -177,7 +150,6 @@ function App() {
         Female
         <br />
         <br />
-        {/* CHECKBOX */}
         <label>Skills:</label>
         <br />
         <input
@@ -214,7 +186,6 @@ function App() {
         React
         <br />
         <br />
-        {/* SELECT */}
         <label>Country:</label>
         <select name="country" value={formData.country} onChange={handleChange}>
           <option value="">Select Country</option>
@@ -225,7 +196,6 @@ function App() {
         </select>
         <br />
         <br />
-        {/* RANGE */}
         <label>Experience: {formData.experience} years</label>
         <input
           type="range"
@@ -237,7 +207,6 @@ function App() {
         />
         <br />
         <br />
-        {/* COLOR */}
         <label>Favorite Color:</label>
         <input
           type="color"
@@ -247,12 +216,10 @@ function App() {
         />
         <br />
         <br />
-        {/* FILE */}
         <label>Profile Picture:</label>
         <input type="file" name="file" onChange={handleChange} />
         <br />
         <br />
-        {/* TEXTAREA */}
         <label>Message:</label>
         <textarea
           name="message"
@@ -262,7 +229,6 @@ function App() {
         />
         <br />
         <br />
-        {/* SUBMIT */}
         <button type="submit">Save Data</button>
         <button type="button" onClick={handleClear}>
           Clear Data
@@ -271,5 +237,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
