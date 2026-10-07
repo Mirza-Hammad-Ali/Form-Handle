@@ -17,8 +17,6 @@ function App() {
     message: "",
     file: null,
   });
-
-  // Input change handle karna
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
